@@ -13,7 +13,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("hello");
 });
-// app.post("/login", authController.login);
+// app.post("/login", authController.login)
 // app.post("/register", authController.register);
 // app.get("/movies", pubController.getMovies);
 
@@ -23,3 +23,5 @@ app.get("/", (req, res) => {
 app.use(errorHandler);
 
 module.exports = app;
+
+
