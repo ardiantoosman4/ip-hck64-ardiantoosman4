@@ -3,13 +3,13 @@ const { User } = require("../models");
 async function authentication(req, res, next) {
   try {
     // req header authentication
-    const { authentication } = req.headers;
+    const { authorization } = req.headers;
     // check authentication ada gk
-    if (!authentication) {
+    if (!authorization) {
       throw { name: "invalidToken" };
     }
     // check bearer atau gk
-    let splittedAuth = authentication.split(" ");
+    let splittedAuth = authorization.split(" ");
     if (splittedAuth[0] !== "Bearer") {
       throw { name: "invalidToken" };
     }
@@ -20,7 +20,7 @@ async function authentication(req, res, next) {
     const payload = decodeToken(splittedAuth[1]);
     // get user
     const user = await User.findByPk(payload.id, {
-      attributes: ["id", "email", "role"],
+      attributes: ["id", "email"],
     });
     // check user ada gk
     if (!user) {
