@@ -10,11 +10,10 @@ const errorHandler = require("./middlewares/errorHandler");
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.get("/", (req, res) => {
-  res.send("hello");
-});
-// app.post("/login", authController.login)
-// app.post("/register", authController.register);
+
+app.post("/login", authController.login);
+app.post("/googleLogin", authController.googleLogin);
+app.post("/register", authController.register);
 // app.get("/movies", pubController.getMovies);
 
 // app.use(authentication);
@@ -23,5 +22,3 @@ app.get("/", (req, res) => {
 app.use(errorHandler);
 
 module.exports = app;
-
-

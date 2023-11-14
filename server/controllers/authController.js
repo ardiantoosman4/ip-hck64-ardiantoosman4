@@ -1,6 +1,7 @@
 const { User, Order } = require("../models");
 const { createToken } = require("../helpers/jwt");
 const { comparePassword } = require("../helpers/bycrypt");
+const { OAuth2Client } = require("google-auth-library");
 
 class authController {
   static async register(req, res, next) {
@@ -38,6 +39,37 @@ class authController {
       const token = createToken({ id: user.id });
       res.status(200).json({ access_token: token });
     } catch (error) {
+      next(error);
+    }
+  }
+
+  static async googleLogin(req, res, next) {
+    const { googleToken } = req.body;
+    try {
+      console.log(googleToken);
+      const client = new OAuth2Client();
+      const ticket = await client.verifyIdToken({
+        idToken: googleToken,
+        audience: process.env.GOOGLE_CLIENT_ID,
+      });
+      const { email, sub } = ticket.getPayload();
+      let user = await User.findOne({ where: { email } });
+      if (!user) {
+        // create
+        user = await User.create(
+          {
+            email,
+            password: sub,
+          },
+          {
+            hooks: false,
+          }
+        );
+      }
+      const token = createToken({ id: user.id });
+      res.status(200).json({ access_token: token });
+    } catch (error) {
+      console.log(error);
       next(error);
     }
   }
