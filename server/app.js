@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const pubController = require("./controllers/pubController");
+const payController = require("./controllers/payController");
 const authController = require("./controllers/authController");
 
 const authentication = require("./middlewares/authentication");
@@ -16,8 +16,8 @@ app.post("/googleLogin", authController.googleLogin);
 app.post("/register", authController.register);
 // app.get("/movies", pubController.getMovies);
 
-// app.use(authentication);
-// app.post("/add-user", authController.addUser);
+app.use(authentication);
+app.post("/midtrans/token", payController.placeOrderMidtrans);
 
 app.use(errorHandler);
 
