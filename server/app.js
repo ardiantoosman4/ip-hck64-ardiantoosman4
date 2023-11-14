@@ -16,6 +16,7 @@ app.post("/googleLogin", authController.googleLogin);
 app.post("/register", authController.register);
 // app.get("/movies", pubController.getMovies);
 
+app.post("/midtrans/payment", payController.payOrderMidtrans);
 app.use(authentication);
 app.post("/midtrans/token", payController.placeOrderMidtrans);
 

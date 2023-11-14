@@ -40,5 +40,53 @@ class payController {
       next(err);
     }
   }
+
+  static async payOrderMidtrans(req, res, next) {
+    try {
+      const { transaction_status, fraud_status, order_id } = req.body;
+      const successProcess = async () => {
+        const result = await Order.update(
+          {
+            status: "success",
+          },
+          {
+            where: {
+              id: order_id,
+            },
+            returning: true,
+          }
+        );
+      };
+
+      if (transaction_status == "capture") {
+        if (fraud_status == "accept") {
+          // TODO set transaction status on your database to 'success' // and response with 200 OK
+          await successProcess();
+        }
+      } else if (transaction_status == "settlement") {
+        // TODO set transaction status on your database to 'success' // and response with 200 OK
+        await successProcess();
+      } else if (
+        transaction_status == "cancel" ||
+        transaction_status == "deny" ||
+        transaction_status == "expire"
+      ) {
+        // TODO set transaction status on your database to 'failure' // and response with 200 OK
+        await Order.update(
+          {
+            status: "failed",
+          },
+          {
+            where: {
+              id: order_id,
+            },
+          }
+        );
+      }
+      res.sendStatus(200);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 module.exports = payController;
