@@ -21,8 +21,8 @@ app.post("/midtrans/payment", payController.payOrderMidtrans);
 app.use(authentication);
 app.post("/midtrans/token", payController.placeOrderMidtrans);
 app.get("/my-profile", profileController.getOrder);
-app.delete("/my-profile/order/:orderId", profileController.deleteOrder);
-app.put("/my-profile/order/:orderId", profileController.updateOrder);
+app.delete("/my-profile/order/:OrderId", profileController.deleteOrder);
+app.put("/my-profile/order/:OrderId", profileController.updateOrder);
 
 app.use(errorHandler);
 

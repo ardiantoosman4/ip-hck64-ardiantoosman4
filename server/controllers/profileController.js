@@ -1,35 +1,41 @@
 const { User, Order } = require("../models");
+const midtransClient = require("midtrans-client");
 
 class profileController {
-  static async getOrder(req,res,next){
+  static async getOrder(req, res, next) {
     try {
-      let userId  = req.user.id;
+      let userId = req.user.id;
       let data = await Order.findAll({
-        where:{
-          UserId:userId
-        }
+        where: {
+          UserId: userId,
+        },
       });
       res.status(200).json(data);
     } catch (error) {
       next(error);
     }
   }
-  static async deleteOrder(req,res,next){
+  static async deleteOrder(req, res, next) {
     try {
-      let orderId = req.params.orderId
-      let order = await Order.findByPk(orderId);
+      let snap = new midtransClient.Snap({
+        // Set to true if you want Production Environment (accept real transaction).
+        isProduction: false,
+        serverKey: process.env.MIDTRANS_SERVER_KEY,
+      });
+      let id = req.params.OrderId;
+      let order = await Order.findByPk(id);
       if (!order) {
-        throw { name: "notFound", orderId };
+        throw { name: "notFound", id };
       }
+      snap.transaction.cancel(order.order_id).then(async (response) => {
+        await Order.destroy({ where: { id } });
+      });
 
-      await Order.destroy({ where: { id:orderId } });
       res.status(200).json(order);
     } catch (error) {
       next(error);
     }
   }
-  static async updateOrder(req,res,next){
-
-  }
+  static async updateOrder(req, res, next) {}
 }
 module.exports = profileController;

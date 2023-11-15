@@ -23,9 +23,9 @@ class payController {
       };
 
       const response = await snap.createTransaction(parameter);
-      await order.update(
+      await Order.update(
         { snapToken: response.token },
-        { where: { order_id: order_id } }
+        { where: { order_id: order.order_id } }
       );
       res.json(response);
     } catch (err) {
