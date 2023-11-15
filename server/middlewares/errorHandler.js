@@ -1,4 +1,5 @@
 function errorHandler(err, req, res, next) {
+  console.log(err,'<<<<<<<<<<<<<<<<<<<<<<<<')
   //  check condition error
   if (err.name === "JsonWebTokenError" || err.name === "invalidToken") {
     res.status(401).json({ message: "Invalid Token!" });

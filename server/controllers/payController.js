@@ -8,16 +8,8 @@ class payController {
         isProduction: false,
         serverKey: process.env.MIDTRANS_SERVER_KEY,
       });
-      const lastOrders = await Order.findAll({
-        limit: 1,
-        where: {
-          UserId: req.user.id,
-        },
-        order: [["createdAt", "DESC"]],
-      });
-      const lastId = lastOrders.length > 0 ? lastOrders[0].id + 1 : 1;
       const order = await Order.create({
-        orderId: `${lastId}`,
+        order_id: `MT-${req.user.id}-${Date.now()}`,
         UserId: req.user.id,
         orderTime: new Date(),
         price: 5000,
@@ -25,15 +17,16 @@ class payController {
       });
       let parameter = {
         transaction_details: {
-          order_id: order.id,
+          order_id: order.order_id,
           gross_amount: order.price,
         },
       };
 
       const response = await snap.createTransaction(parameter);
-      // await order.update({
-      // snapToken: response, token
-      // })
+      await order.update(
+        { snapToken: response.token },
+        { where: { order_id: order_id } }
+      );
       res.json(response);
     } catch (err) {
       console.log(err);
@@ -46,13 +39,9 @@ class payController {
       const { transaction_status, fraud_status, order_id } = req.body;
       const successProcess = async () => {
         const result = await Order.update(
+          { status: "success" },
           {
-            status: "success",
-          },
-          {
-            where: {
-              id: order_id,
-            },
+            where: { order_id: order_id },
             returning: true,
           }
         );
@@ -73,14 +62,8 @@ class payController {
       ) {
         // TODO set transaction status on your database to 'failure' // and response with 200 OK
         await Order.update(
-          {
-            status: "failed",
-          },
-          {
-            where: {
-              id: order_id,
-            },
-          }
+          { status: "failed" },
+          { where: { order_id: order_id } }
         );
       }
       res.sendStatus(200);

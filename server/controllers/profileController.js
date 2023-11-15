@@ -15,6 +15,18 @@ class profileController {
     }
   }
   static async deleteOrder(req,res,next){
+    try {
+      let orderId = req.params.orderId
+      let order = await Order.findByPk(orderId);
+      if (!order) {
+        throw { name: "notFound", orderId };
+      }
+
+      await Order.destroy({ where: { id:orderId } });
+      res.status(200).json(order);
+    } catch (error) {
+      next(error);
+    }
   }
   static async updateOrder(req,res,next){
 
