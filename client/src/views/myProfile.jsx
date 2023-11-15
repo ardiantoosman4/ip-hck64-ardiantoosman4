@@ -1,7 +1,10 @@
-import React from 'react'
+import React from "react";
 
 export default function MyProfile() {
   return (
-    <div>MyProfile</div>
-  )
+    <>
+      <Navbar />
+      <div>MyProfile</div>
+    </>
+  );
 }

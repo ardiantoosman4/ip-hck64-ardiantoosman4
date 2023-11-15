@@ -2,10 +2,12 @@ import React from "react";
 import { getPopularMovies, getTopMovies } from "../helpers/tmdbAPI";
 import { useState } from "react";
 import { useEffect } from "react";
-import { TMDB_IMG } from "../CONSTANT";
 import Navbar from "../components/navbar";
+import Card from "../components/card";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+  const navigate = useNavigate();
   const [popularMovies, setPopularMovies] = useState([]);
   const [topMovies, setTopMovies] = useState([]);
   useEffect(() => {
@@ -19,13 +21,26 @@ export default function Home() {
     setTopMovies(dataTop);
   }
 
-  console.log(topMovies);
+  function changePageToDetail(id){
+    navigate(`/movie/${id}`)
+  }
 
   return (
     <>
       <Navbar />
-      <div className="container">
-        <div className="text-white">Home</div>
+      <div className="container mt-3">
+        <div className="row row-cols-1 row-cols-md-4 g-4">
+          {topMovies &&
+            topMovies.map((movie) => {
+              return (
+                <Card
+                  key={movie.id}
+                  movie={movie}
+                  changePageToDetail={changePageToDetail}
+                />
+              );
+            })}
+        </div>
       </div>
     </>
   );
