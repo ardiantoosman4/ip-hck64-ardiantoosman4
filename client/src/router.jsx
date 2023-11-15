@@ -21,7 +21,7 @@ function redirectAlreadyLogin() {
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
   { path: "/login", element: <Login />, loader: redirectAlreadyLogin },
-  { path: "/register", element: <Register /> },
+  { path: "/register", element: <Register />, loader: redirectAlreadyLogin },
   { path: "/movie/:id", element: <MovieDetail /> },
   {
     path: "/my-profile",
