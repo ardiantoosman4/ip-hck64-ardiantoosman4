@@ -26,6 +26,19 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
+      order_id: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "order_id is required!",
+          },
+          notEmpty: {
+            msg: "order_id is required!",
+          },
+        },
+      },
+      snapToken: DataTypes.STRING,
       orderTime: DataTypes.DATE,
       paymentStatus: { type: DataTypes.STRING, defaultValue: "pending" },
       title: DataTypes.STRING,
