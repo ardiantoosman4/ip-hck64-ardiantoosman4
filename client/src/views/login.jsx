@@ -4,7 +4,7 @@ import "./login-register.css";
 import bgImg from "/login-register-bg.jpg";
 import logo from "/logo.png";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { URL_DATA } from "../CONSTANT";
 import swal from "sweetalert";
 
@@ -102,7 +102,8 @@ export default function Login() {
                 }}
               />
               <p className="my-4">
-                New to TENFLIX? <a href="#">Register</a>
+                New to <b className="text-danger">TENFLIX</b>?
+                <Link to="/register">Register Here</Link>
               </p>
             </div>
           </form>
