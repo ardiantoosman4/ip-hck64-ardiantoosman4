@@ -1,4 +1,6 @@
-require("dotenv").config();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 const express = require("express");
 const cors = require("cors");
 const payController = require("./controllers/payController");
@@ -12,6 +14,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("TENFLIX SERVER IS RUNNING");
+});
 app.post("/login", authController.login);
 app.post("/googleLogin", authController.googleLogin);
 app.post("/register", authController.register);
