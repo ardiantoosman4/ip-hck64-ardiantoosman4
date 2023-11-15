@@ -22,7 +22,7 @@ app.use(authentication);
 app.post("/midtrans/token", payController.placeOrderMidtrans);
 app.get("/my-profile", profileController.getOrder);
 app.delete("/my-profile/order/:OrderId", profileController.deleteOrder);
-app.put("/my-profile/order/:OrderId", profileController.updateOrder);
+app.get("/my-profile/order/:OrderId", profileController.getOrderById);
 
 app.use(errorHandler);
 

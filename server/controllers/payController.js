@@ -12,7 +12,12 @@ class payController {
         order_id: `MT-${req.user.id}-${Date.now()}`,
         UserId: req.user.id,
         orderTime: new Date(),
-        price: 5000,
+        price: req.body.price,
+        title: req.body.title,
+        imgUrl: req.body.imgUrl,
+        description: req.body.description,
+        duration: req.body.duration,
+        trailerUrl: req.body.trailerUrl,
         paymentStatus: "pending", // pending | paid expired
       });
       let parameter = {
@@ -39,7 +44,7 @@ class payController {
       const { transaction_status, fraud_status, order_id } = req.body;
       const successProcess = async () => {
         const result = await Order.update(
-          { status: "success" },
+          { paymentStatus: "success" },
           {
             where: { order_id: order_id },
             returning: true,
@@ -62,7 +67,7 @@ class payController {
       ) {
         // TODO set transaction status on your database to 'failure' // and response with 200 OK
         await Order.update(
-          { status: "failed" },
+          { paymentStatus: "failed" },
           { where: { order_id: order_id } }
         );
       }

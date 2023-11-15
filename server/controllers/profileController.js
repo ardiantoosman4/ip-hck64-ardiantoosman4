@@ -36,6 +36,17 @@ class profileController {
       next(error);
     }
   }
-  static async updateOrder(req, res, next) {}
+  static async getOrderById(req, res, next) {
+    try {
+      let id = req.params.OrderId;
+      let order = await Order.findByPk(id);
+      if (!order) {
+        throw { name: "notFound", id };
+      }
+      res.status(200).json(order);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 module.exports = profileController;
