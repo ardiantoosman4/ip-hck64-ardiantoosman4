@@ -74,7 +74,22 @@ export default function Home() {
           },
           headers: { authorization: `Bearer ${localStorage.access_token}` },
         });
-        window.snap.pay(data.token);
+        window.snap.pay(data.token, {
+          onSuccess: function () {
+            swal("Payment Success", "Success, You can watch it now", "success");
+            navigate("/my-profile");
+          },
+          onPending: function () {
+            console.log("pending");
+          },
+          onError: function () {
+            swal("Payment Failed", "", "error");
+            navigate("/");
+          },
+          onClose: function () {
+            navigate("/");
+          },
+        });
       } else {
         swal("Buy Failed!", "Please login first to buy a movie", "error");
       }

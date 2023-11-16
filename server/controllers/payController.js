@@ -33,7 +33,7 @@ class payController {
         { snapToken: response.token },
         { where: { order_id: order.order_id } }
       );
-      res.json(response);
+      res.status(200).json(response);
     } catch (err) {
       console.log(err);
       next(err);

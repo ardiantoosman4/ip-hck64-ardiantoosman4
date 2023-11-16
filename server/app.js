@@ -20,7 +20,6 @@ app.get("/", (req, res) => {
 app.post("/login", authController.login);
 app.post("/googleLogin", authController.googleLogin);
 app.post("/register", authController.register);
-// app.get("/movies", pubController.getMovies);
 
 app.post("/midtrans/payment", payController.payOrderMidtrans);
 app.use(authentication);
