@@ -38,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
+      movie_id: DataTypes.INTEGER,
       snapToken: DataTypes.STRING,
       orderTime: DataTypes.DATE,
       paymentStatus: { type: DataTypes.STRING, defaultValue: "pending" },
