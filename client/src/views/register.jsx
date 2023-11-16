@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { GoogleLogin } from "@react-oauth/google";
 import "./login-register.css";
 import bgImg from "/login-register-bg.jpg";
 import logo from "/logo.png";
