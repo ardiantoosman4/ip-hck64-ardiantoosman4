@@ -38,7 +38,18 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      movie_id: DataTypes.INTEGER,
+      movie_id: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "movie_id is required!",
+          },
+          notEmpty: {
+            msg: "movie_id is required!",
+          },
+        },
+      },
       snapToken: DataTypes.STRING,
       orderTime: DataTypes.DATE,
       paymentStatus: { type: DataTypes.STRING, defaultValue: "pending" },

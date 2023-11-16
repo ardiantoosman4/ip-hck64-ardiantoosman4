@@ -27,11 +27,16 @@ class profileController {
       if (!order) {
         throw { name: "notFound", id };
       }
-      snap.transaction.cancel(order.order_id).then(async (response) => {
-        await Order.destroy({ where: { id } });
-      });
 
-      res.status(200).json(order);
+      snap.transaction
+        .cancel(order.order_id)
+        .then(async (response) => {
+          await Order.destroy({ where: { id } });
+          res.status(200).json(order);
+        })
+        .catch(function () {
+          next({ name: "midtransCancel" });
+        });
     } catch (error) {
       next(error);
     }
