@@ -12,7 +12,7 @@ export default function MyProfile() {
     getMyOrders();
   }, []);
 
-  async function getMyOrders(params) {
+  async function getMyOrders() {
     try {
       let { data } = await axios({
         method: "get",
@@ -24,6 +24,7 @@ export default function MyProfile() {
       console.log(error);
     }
   }
+  
   return (
     <>
       <Navbar />
@@ -44,7 +45,10 @@ export default function MyProfile() {
             {myOrders.map((order, index) => {
               return (
                 <tr key={order.id}>
-                  <TableMyProfile index={index} data={order} />
+                  <TableMyProfile
+                    index={index}
+                    data={order}
+                  />
                 </tr>
               );
             })}

@@ -14,6 +14,7 @@ class payController {
         orderTime: new Date(),
         price: req.body.price,
         title: req.body.title,
+        movie_id: req.body.movie_id,
         imgUrl: req.body.imgUrl,
         description: req.body.description,
         duration: req.body.duration,

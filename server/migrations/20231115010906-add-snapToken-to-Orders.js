@@ -11,6 +11,7 @@ module.exports = {
      */
     await queryInterface.addColumn('Orders', 'snapToken', { type: Sequelize.STRING });
     await queryInterface.addColumn('Orders', 'order_id', { type: Sequelize.STRING });
+    await queryInterface.addColumn('Orders', 'movie_id', { type: Sequelize.STRING });
   },
 
   async down (queryInterface, Sequelize) {
@@ -22,5 +23,6 @@ module.exports = {
      */
     await queryInterface.removeColumn('Orders', 'snapToken', { /* query options */ });
     await queryInterface.removeColumn('Orders', 'order_id', { /* query options */ });
+    await queryInterface.removeColumn('Orders', 'movie_id', { /* query options */ });
   }
 };
