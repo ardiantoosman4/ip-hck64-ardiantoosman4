@@ -1,5 +1,5 @@
 function errorHandler(err, req, res, next) {
-  console.log(err,'<<<<<<<<<<<<<<<<<<<<<<<<')
+  // console.log(err,'<<<<<<<<<<<<<<<<<<<<<<<<')
   //  check condition error
   if (err.name === "JsonWebTokenError" || err.name === "invalidToken") {
     res.status(401).json({ message: "Invalid Token!" });
@@ -7,6 +7,8 @@ function errorHandler(err, req, res, next) {
     res.status(401).json({ message: "Invalid email or password!" });
   } else if (err.name === "invalidLoginInput") {
     res.status(400).json({ message: `${err.field} is required!` });
+  }else if (err.name === "midtransCancel") {
+    res.status(400).json({ message: `snap token is not valid` });
   } else if (err.name === "noFile") {
     res.status(400).json({ message: `Image file is required!` });
   } else if (err.name === "notFound") {
