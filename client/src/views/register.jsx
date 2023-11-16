@@ -34,7 +34,7 @@ export default function Register() {
       navigate("/login");
       swal("Register Success!", "Success create new TENFLIX account, Login Now", "success");
     } catch (error) {
-      swal("Login Failed", error.response.data.message, "error");
+      swal("Register Failed", error.response.data.message, "error");
     }
   }
   return (
