@@ -24,7 +24,6 @@ export default function MyProfile() {
       console.log(error);
     }
   }
-
   
   return (
     <>

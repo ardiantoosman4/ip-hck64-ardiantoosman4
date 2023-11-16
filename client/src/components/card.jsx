@@ -1,9 +1,17 @@
 import { TMDB_IMG } from "../CONSTANT";
-export default function Card({ movie, changePageToDetail, handlePlaceOrder }) {
+export default function Card({
+  movie,
+  myOrders,
+  changePageToDetail,
+  handlePlaceOrder,
+}) {
   let content = movie.overview;
   if (content.length > 100) {
     content = content.slice(0, 100);
     content += " ...";
+  }
+  if (!myOrders) {
+    myOrders = [];
   }
   return (
     <>
@@ -28,12 +36,21 @@ export default function Card({ movie, changePageToDetail, handlePlaceOrder }) {
               >
                 See More
               </a>
-              <a
-                className="btn btn-danger btn-sm"
-                onClick={() => handlePlaceOrder(movie)}
-              >
-                Buy Access
-              </a>
+              {myOrders.includes(movie.id) ? (
+                <a
+                  className="btn btn-success btn-sm"
+                  onClick={() => changePageToDetail(movie.id)}
+                >
+                  Watch Now
+                </a>
+              ) : (
+                <a
+                  className="btn btn-danger btn-sm"
+                  onClick={() => handlePlaceOrder(movie)}
+                >
+                  Buy Access
+                </a>
+              )}
             </div>
           </div>
         </div>
