@@ -1,5 +1,5 @@
 import { TMDB_IMG } from "../CONSTANT";
-export default function Card({ movie, changePageToDetail }) {
+export default function Card({ movie, changePageToDetail, handlePlaceOrder }) {
   let content = movie.overview;
   if (content.length > 100) {
     content = content.slice(0, 100);
@@ -30,7 +30,7 @@ export default function Card({ movie, changePageToDetail }) {
               </a>
               <a
                 className="btn btn-danger btn-sm"
-                onClick={() => changePageToDetail(movie.id)}
+                onClick={() => handlePlaceOrder(movie)}
               >
                 Buy Access
               </a>

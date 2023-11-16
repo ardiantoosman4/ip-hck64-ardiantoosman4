@@ -14,7 +14,7 @@ export default function TableMyProfile({ index, data }) {
         <Status type={data.paymentStatus} />
       </td>
       <td>
-        <ActionButton type={data.paymentStatus} />
+        <ActionButton type={data.paymentStatus} orderId={data.id} />
       </td>
     </>
   );
