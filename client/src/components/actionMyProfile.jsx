@@ -13,8 +13,22 @@ export default function ActionButton({ type, orderId }) {
         url: URL_DATA + `/my-profile/order/${id}`,
         headers: { authorization: `Bearer ${localStorage.access_token}` },
       });
-      window.snap.pay(data.snapToken);
-      navigate("/");
+      window.snap.pay(data.snapToken, {
+        onSuccess: function () {
+          swal("Payment Success", "Success, You can watch it now", "success");
+          navigate("/my-profile");
+        },
+        onPending: function () {
+          console.log("pending");
+        },
+        onError: function () {
+          swal("Payment Failed", "", "error");
+          navigate("/my-profile");
+        },
+        onClose: function () {
+          navigate("/my-profile");
+        },
+      });
     } catch (error) {
       console.log(error);
     }
