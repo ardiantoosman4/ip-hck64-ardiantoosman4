@@ -75,6 +75,24 @@ form .input-box {
   font-size: 0.75rem;
   transform: translateY(-130%);
 }
+#btnConstruction {
+  width: 100%;
+  padding: 16px 0;
+  margin: 25px 0 10px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  background: #e50914;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.1s ease;
+}
+#btnConstruction:hover {
+  background: #c40812;
+}
+
 form button {
   width: 100%;
   padding: 16px 0;

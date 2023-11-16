@@ -14,6 +14,7 @@ export default function ActionButton({ type, orderId }) {
         headers: { authorization: `Bearer ${localStorage.access_token}` },
       });
       window.snap.pay(data.snapToken);
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -25,8 +26,8 @@ export default function ActionButton({ type, orderId }) {
         url: URL_DATA + `/my-profile/order/${id}`,
         headers: { authorization: `Bearer ${localStorage.access_token}` },
       });
-      navigate("/");
       swal("Cancel Payment", "Success to cancel order movie", "success");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
