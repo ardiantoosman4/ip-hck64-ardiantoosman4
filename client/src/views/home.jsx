@@ -1,7 +1,5 @@
-import React from "react";
 import { getPopularMovies, getTopMovies } from "../helpers/tmdbAPI";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState,useEffect } from "react";
 import Navbar from "../components/navbar";
 import Card from "../components/card";
 import { useNavigate } from "react-router-dom";
