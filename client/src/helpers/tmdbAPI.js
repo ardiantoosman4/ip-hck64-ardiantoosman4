@@ -8,7 +8,9 @@ export const getPopularMovies = async () => {
   return movie.data.results;
 };
 
-export const getTopMovies = async () => {
-  const movie = await axios.get(`${TMDB_DATA}/movie/top_rated?api_key=${apiKey}`);
+export const getTopMovies = async (page) => {
+  const movie = await axios.get(
+    `${TMDB_DATA}/movie/top_rated?api_key=${apiKey}&page=${page}`
+  );
   return movie.data.results;
 };
